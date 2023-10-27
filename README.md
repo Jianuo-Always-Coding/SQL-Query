@@ -1,2 +1,5 @@
 # SQL-Query
-SQL knowledge
+
+## SELECT 
+- * : select all
+- 
