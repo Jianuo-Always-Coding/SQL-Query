@@ -127,3 +127,62 @@ FROM employees e
 LEFT JOIN employees m
 	ON e.reports_to = m.employee_id
 ```
+
+## NATURAL JOINS
+
+```SQL
+SELECT
+    o.order_id,
+    c,first_name
+FROM orders o
+NATURAL JOIN customers c
+```
+
+- 'NATURAL JOIN' can auto select the column which have the same name as the join condition.
+- Do not recommend.
+
+## CROSS JOINS
+
+```SQL
+SELECT
+	c.first_name AS customer,
+    p.name AS product
+FROM customers c
+CROSS JOIN products p
+-- FROM customers c, products p
+ORDER BY c.first_name
+```
+
+- This operation can list all combinations with 2 forms.(m \* n)
+- There are two ways to use this, but I think the explicit syntax is the most clearly.
+
+## UNION
+
+```SQL
+SELECT
+	order_id,
+    order_date,
+    'Active' AS status
+FROM orders
+WHERE order_date >= '2019-01-01'
+
+UNION
+
+SELECT
+	order_id,
+    order_date,
+    'Actived' AS status
+FROM orders
+WHERE order_date < '2019-01-01'
+```
+
+- Use 'UNION', we can combine several results together.
+```SQL
+SELECT first_name
+FROM archived_orders
+UNION
+SELECT name
+FROM orders
+```
+- Also the reuslts could not in the same table. But we must ensure that the numbers of columns are the same.
+- The columns' names depend on the first part result.
