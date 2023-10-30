@@ -1,0 +1,32 @@
+## ALL
+
+```SQL
+SELECT *
+FROM invoices
+WHERE invoice_total > ALL (150,130,180)
+```
+- 'All' is all the things.
+
+## EXISTS
+> The following two code blocks complete the same function.
+```SQL
+SELECT *
+FROM clients
+WHERE client_id IN (
+	SELECT DISTINCT client_id
+    FROM invoices
+)
+```
+
+```SQL
+SELECT *
+FROM clients c
+WHERE EXISTS (
+	SELECT client_id
+    FROM invoices
+    WHERE client_id = c.client_id
+)
+```
+
+- When we use 'IN' syntax, it always run the code in (), then get a list. Next do the operations in the main 'SELECT'. This always cost a lot of time.
+- We can use 'EXISTS' to reduce the time to optimize.
